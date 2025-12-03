@@ -19,6 +19,8 @@ docker run -p 8080:81 --network clo-network sample-app --env-file .env
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
+By Wes:
+
 # CLO835 Final Project - Application & CI/CD
 
 This repository contains the source code for the **CLO835 Final Project (Task 1 & 3)**. It includes the enhanced Flask application and a GitHub Actions workflow that automatically builds, tests, and publishes the Docker image to Amazon ECR.
