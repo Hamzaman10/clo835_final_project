@@ -2,7 +2,7 @@ import unittest
 import sys
 from unittest.mock import MagicMock
 
-# 1. Mock the specific library your partner used (pymysql)
+# 1. Mock the specific library (pymysql)
 # This prevents the app from trying to open a real network connection
 mock_pymysql = MagicMock()
 sys.modules['pymysql'] = mock_pymysql
