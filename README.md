@@ -185,7 +185,7 @@ kubectl create serviceaccount clo835 -n final
 7. Deploy & Verify
 kubectl apply -f k8s/
 
-# Wait ~60 seconds for pods to start
+# Wait 60 seconds for pods to start
 kubectl get pods -n final
 
 8 Change backround image
