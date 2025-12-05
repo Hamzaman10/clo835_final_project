@@ -163,15 +163,15 @@ Use the project’s configuration file to create the EKS cluster:
 3. Setup Namespace
 Create the required namespace:
 
-kubectl create namespace final
+# kubectl create namespace final
 
 4. S3 Background Image Setup
 Download a background image and upload it to your private S3 bucket:
 
-# 1. Download a background image
+# Download a background image
 wget https://images.unsplash.com/photo-1579546929518-9e396f3cc809 -O background.jpg
 
-# 2. Upload the image to your bucket
+# Upload the image to your bucket
 aws s3 cp background.jpg s3://hamza-project/background.jpg
 
 5. Update Manifest Configurations
@@ -188,7 +188,7 @@ kubectl apply -f k8s/
 # Wait 60 seconds for pods to start
 kubectl get pods -n final
 
-8 Change backround image
+8. Change backround image
 Upload any image you like to the S3 bucket
 
 change the url in k8s/01-configmap.yaml
