@@ -146,3 +146,55 @@ When creating Kubernetes manifests, reference the image stored in Amazon ECR:
 *Note: Replace `975050350494` with your current AWS Academy lab account ID if it changes.*
 
 ---
+## By Hamza: EKS Deployment & Configuration
+
+1. AWS Authentication
+Import AWS Academy credentials into your terminal if you havent done so yet
+
+export AWS_ACCESS_KEY_ID=your_access_key
+export AWS_SECRET_ACCESS_KEY=your_secret_key
+export AWS_SESSION_TOKEN=your_session_token
+
+2. Create the EKS Cluster
+Use the project’s configuration file to create the EKS cluster:
+
+eksctl create cluster -f k8s/eks-config.yaml
+
+3. Setup Namespace
+Create the required namespace:
+
+kubectl create namespace final
+
+4. S3 Background Image Setup
+Download a background image and upload it to your private S3 bucket:
+
+# 1. Download a background image
+wget https://images.unsplash.com/photo-1579546929518-9e396f3cc809 -O background.jpg
+
+# 2. Upload the image to your bucket
+aws s3 cp background.jpg s3://hamza-project/background.jpg
+
+5. Update Manifest Configurations
+ConfigMap: Update k8s/config.yaml to use the live S3 bucket URL (BG_IMAGE_URL).
+Flask Deployment: Update k8s/flask-deployment.yaml to use your ECR image URI:
+975050319979.dkr.ecr.us-east-1.amazonaws.com/clo835-final-project:latest
+
+6. Create Service Account
+kubectl create serviceaccount clo835 -n final
+
+7. Deploy & Verify
+kubectl apply -f k8s/
+
+# Wait ~60 seconds for pods to start
+kubectl get pods -n final
+
+8 Change backround image
+Upload any image you like to the S3 bucket
+
+change the url in k8s/01-configmap.yaml
+
+# apply commands and refresh page 
+kubectl apply -f k8s/01-configmap.yaml
+kubectl rollout restart deployment/flask-app -n final
+
+
