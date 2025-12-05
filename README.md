@@ -151,9 +151,9 @@ When creating Kubernetes manifests, reference the image stored in Amazon ECR:
 1. AWS Authentication
 Import AWS Academy credentials into your terminal if you havent done so yet
 
-export AWS_ACCESS_KEY_ID=your_access_key
-export AWS_SECRET_ACCESS_KEY=your_secret_key
-export AWS_SESSION_TOKEN=your_session_token
+- export AWS_ACCESS_KEY_ID=your_access_key
+- export AWS_SECRET_ACCESS_KEY=your_secret_key
+- export AWS_SESSION_TOKEN=your_session_token
 
 2. Create the EKS Cluster
 Use the project’s configuration file to create the EKS cluster:
