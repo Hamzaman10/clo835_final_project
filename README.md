@@ -175,9 +175,8 @@ wget https://images.unsplash.com/photo-1579546929518-9e396f3cc809 -O background.
 aws s3 cp background.jpg s3://hamza-project/background.jpg
 
 5. Update Manifest Configurations
-ConfigMap: Update k8s/config.yaml to use the live S3 bucket URL (BG_IMAGE_URL).
-Flask Deployment: Update k8s/flask-deployment.yaml to use your ECR image URI:
-975050319979.dkr.ecr.us-east-1.amazonaws.com/clo835-final-project:latest
+- ConfigMap: Update k8s/config.yaml to use the live S3 bucket URL (BG_IMAGE_URL).
+- Flask Deployment: Update k8s/flask-deployment.yaml to use your ECR image (ex: URI:975050319979.dkr.ecr.us-east-1.amazonaws.com/clo835-final-project:latest)
 
 6. Create Service Account
 kubectl create serviceaccount clo835 -n final
