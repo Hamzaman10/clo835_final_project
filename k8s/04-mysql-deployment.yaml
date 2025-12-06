@@ -1,3 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-init-script
+  namespace: final
+data:
+  mysql.sql: |
+    CREATE DATABASE IF NOT EXISTS employees;
+    USE employees;
+    CREATE TABLE IF NOT EXISTS employee(
+    emp_id VARCHAR(20), first_name VARCHAR(20), last_name VARCHAR(20), primary_skill VARCHAR(20), location VARCHAR(20));
+    INSERT INTO employee VALUES ('1','Amanda','Williams','Smile','local');
+    INSERT INTO employee VALUES ('1','Alan','Williams','Empathy','alien');
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,21 +30,45 @@ spec:
       containers:
       - name: mysql
         image: mysql:5.7
+        # Fix for AWS crash
+        args: ["--ignore-db-dir=lost+found"]
         ports:
         - containerPort: 3306
         env:
-        # Here we pull the password from the k8s secret named 'mysql-secret'
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-secret
-              key: MYSQL_PASSWORD
+              name: mysql-credentials
+              key: password
         - name: MYSQL_DATABASE
-          value: employees
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DATABASE
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
+        # Automation Mount
+        - name: mysql-init-volume
+          mountPath: /docker-entrypoint-initdb.d
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
-          claimName: mysql-pv-claim
+          claimName: mysql-pvc
+      - name: mysql-init-volume
+        configMap:
+          name: mysql-init-script
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: final
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
