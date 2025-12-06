@@ -158,7 +158,7 @@ Import AWS Academy credentials into your terminal if you havent done so yet
 2. Create the EKS Cluster
 Use the project’s configuration file to create the EKS cluster:
 
-# eksctl create cluster -f k8s/eks-config.yaml
+# eksctl create cluster -f eks-config.yaml
 
 3. Setup Namespace
 Create the required namespace:
