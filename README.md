@@ -187,6 +187,9 @@ kubectl apply -f k8s/
 # Wait 60 seconds for pods to start
 kubectl get pods -n final
 
+# Get the url
+kubectl get svc -n final
+
 8. Change backround image
 Upload any image you like to the S3 bucket
 
